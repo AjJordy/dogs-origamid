@@ -12,36 +12,33 @@ export const UserStorage = ({ children }) => {
   const [error, setError] = React.useState(null);
   const navigate = useNavigate();
 
-  const userLogout = React.useCallback(
-    async function () {
-      setData(null);
-      setError(null);
-      setLoading(false);
-      setLogin(false);
-      window.localStorage.removeItem("token");
-      navigate("/login");
-    },
-    [navigate]
-  );
+  const userLogout = React.useCallback(async function () {
+    console.log("logout");
+    setData(null);
+    setError(null);
+    setLoading(false);
+    setLogin(false);
+    window.localStorage.removeItem("token");
+  }, []);
 
   React.useEffect(() => {
     async function autoLogin() {
       const token = window.localStorage.getItem("token");
-      if (token) {
-        try {
-          setError(null);
-          setLoading(true);
-          const { url, options } = TOKEN_VALIDATE_POST(token);
-          const response = await fetch(url, options);
-          if (!response.ok) throw new Error("token inválido");
-          // const json = await response.json();
-          // console.log(json);
-          await getUser(token);
-        } catch (err) {
-          userLogout();
-        } finally {
-          setLoading(false);
-        }
+      if (!token) {
+        setLogin(false);
+        return;
+      }
+      try {
+        setError(null);
+        setLoading(true);
+        const { url, options } = TOKEN_VALIDATE_POST(token);
+        const response = await fetch(url, options);
+        if (!response.ok) throw new Error("token inválido");
+        await getUser(token);
+      } catch (err) {
+        userLogout();
+      } finally {
+        setLoading(false);
       }
     }
     autoLogin();
