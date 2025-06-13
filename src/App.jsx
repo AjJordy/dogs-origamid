@@ -8,7 +8,7 @@ import Footer from "./components/Footer";
 import Login from "./components/login/Login";
 import User from "./components/user/User";
 import { UserStorage } from "./context/UserContext";
-import ProtectedRoute from "./components/helper/ProtectedRoute";
+import ProtectedRoute from "./helper/ProtectedRoute";
 
 function App() {
   return (

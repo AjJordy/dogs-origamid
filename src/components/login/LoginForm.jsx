@@ -4,7 +4,7 @@ import Input from "../forms/Input";
 import Button from "../forms/Button";
 import useForm from "../../hooks/useForm";
 import { UserContext } from "../../context/UserContext";
-import Error from "../helper/Error";
+import Error from "../../helper/Error";
 import styles from "./LoginForm.module.css";
 import stylesBtn from "../forms/Button.module.css";
 
